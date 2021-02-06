@@ -1,0 +1,51 @@
+<div class="page-title">
+  <h4>Orders history</h4>
+  <button
+    #tooltip
+    class="btn btn-small"
+    [ngClass]="{
+      'active': isFilterVisible,
+      'red': isFiltered()
+    }"
+    data-tooltip="Open filter"
+    data-position="left"
+    (click)="toggleFilters()"
+  >
+    <i class="material-icons">filter_list</i>
+  </button>
+</div>
+
+<app-history-filter
+  *ngIf="isFilterVisible"
+  (onFilter)="applyFilter($event)"
+></app-history-filter>
+
+<ng-container [ngTemplateOutlet]="reloading ? loaderTmpl : listTmpl"></ng-container>
+
+<ng-template #listTmpl>
+  <ng-container [ngTemplateOutlet]="ordersList.length > 0 ? ordersTmpl : emptyTmpl"></ng-container>
+
+  <ng-template #ordersTmpl>
+    <app-history-list [orders]="ordersList"></app-history-list>
+    <div class="center mb2">
+      <ng-container [ngTemplateOutlet]="loading ? loaderTmpl : actionTmpl"></ng-container>
+
+      <ng-template #actionTmpl>
+        <button
+          *ngIf="!noMoreOrders"
+          class="btn waves-effect grey darken-1 btn-small"
+          (click)="loadMoreOrders()"
+        >
+          Load more
+        </button>
+      </ng-template>
+    </div>
+  </ng-template>
+  <ng-template #emptyTmpl>
+    <div class="center">Orders history is empty</div>
+  </ng-template>
+</ng-template>
+
+<ng-template #loaderTmpl>
+  <app-loader></app-loader>
+</ng-template>

@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col s12">
+    <div class="page-subtitle">
+      <h4>Positions:</h4>
+      <button
+        class="waves-effect waves-light btn grey darken-1 btn-small" (click)="positionHandler()">
+        Add position
+      </button>
+    </div>
+    <div *ngIf="!loading; else loader">
+      <div *ngIf="positions.length > 0; else empty" class="collection">
+        <a *ngFor="let position of positions" class="collection-item collection-item-icon"
+          (click)="positionHandler(position)">
+          <span> {{ position.name }} <strong> {{ position.cost }}$ </strong></span>
+          <span>
+              <i class="material-icons" (click)="deletePosition($event, position)">delete</i>
+          </span>
+        </a>
+      </div>
+      <ng-template #empty>
+        <div class="center">Positions is empty</div>
+      </ng-template>
+    </div>
+
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div #modal class="modal">
+    <div class="modal-content">
+      <h4 class="mb1">{{ positionId ? 'Edit' : 'Add' }} position</h4>
+      <div class="input-field">
+        <input id="pos-name" formControlName="name" type="text"
+          [ngClass]="{ 'invalid': isControlInvalid('name') }"/>
+        <label for="pos-name">Name</label>
+        <span class="helper-text red-text" *ngIf="isControlInvalid('name')">
+          <span *ngIf="form.controls['name'].errors['required']">
+            Please enter a name
+          </span>
+        </span>
+      </div>
+      <div class="input-field">
+        <input id="pos-cost" formControlName="cost" type="number"
+            [ngClass]="{ 'invalid': isControlInvalid('cost') }"/>
+        <label for="pos-cost">Price</label>
+        <span class="helper-text red-text" *ngIf="isControlInvalid('cost')">
+            <span *ngIf="form.controls['cost'].errors['required']">
+              Please enter a price
+            </span>
+            <span *ngIf="form.controls['cost'].errors['min']">
+              Price must be at least {{minCost}}$
+            </span>
+        </span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="closeModal()" [disabled]="form.disabled"
+        class="modal-action waves-effect waves-black btn-flat">Cancel</button>
+      <button type="submit" [disabled]="form.invalid || form.disabled"
+        class="modal-action btn waves-effect">Save</button>
+    </div>
+  </div>
+</form>

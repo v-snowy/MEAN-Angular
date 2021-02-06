@@ -1,0 +1,22 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AnalyticsModel, OverviewModel } from '../interfaces';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AnalyticsService {
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  getOverview(): Observable<OverviewModel> {
+    return this.http.get<OverviewModel>('/api/analytics/overview');
+  }
+
+  getAnalytics(): Observable<AnalyticsModel> {
+    return this.http.get<AnalyticsModel>('/api/analytics/analytics');
+  }
+}
