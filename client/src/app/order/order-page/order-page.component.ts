@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { Order, OrderPosition } from '../shared/interfaces';
-
-import { MaterialInstance, MaterialService } from '../shared/services/material.service';
-import { OrdersService } from '../shared/services/orders.service';
-import { PositionsService } from '../shared/services/positions.service';
+import { Order, OrderPosition } from 'src/app/shared/interfaces';
+import { MaterialInstance, MaterialService } from 'src/app/shared/services/material.service';
+import { OrdersService } from 'src/app/shared/services/orders.service';
+import { PositionsService } from 'src/app/shared/services/positions.service';
 import { OrderService } from './services/order.service';
 
 @Component({

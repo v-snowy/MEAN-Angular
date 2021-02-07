@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AnalyticsService } from '../shared/services/analytics.service';
-import { OverviewItem, OverviewModel } from '../shared/interfaces';
+import { AnalyticsService } from '../../shared/services/analytics.service';
+import { OverviewItem, OverviewModel } from '../../shared/interfaces';
 import { Observable } from 'rxjs';
-import { MaterialInstance, MaterialService } from '../shared/services/material.service';
+import { MaterialInstance, MaterialService } from '../../shared/services/material.service';
 
 @Component({
   selector: 'app-overview-page',

@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-
 import { AuthService } from '../shared/services/auth.service';
 import { MaterialService } from '../shared/services/material.service';
 
@@ -15,8 +14,10 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   form: FormGroup;
   minLengthPassword = 5;
 
-  constructor(private  authService: AuthService, private router: Router,
-    private route: ActivatedRoute) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({

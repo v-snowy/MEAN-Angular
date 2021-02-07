@@ -1,15 +1,14 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AuthService } from '../../services/auth.service';
-import { MaterialService } from '../../services/material.service';
+import { AuthService } from '../../../services/auth.service';
+import { MaterialService } from '../../../services/material.service';
 
 @Component({
-  selector: 'app-site-layout',
-  templateUrl: './site-layout.component.html',
-  styleUrls: ['./site-layout.component.sass']
+  selector: 'app-shell',
+  templateUrl: './shell.component.html',
+  styleUrls: ['./shell.component.sass']
 })
-export class SiteLayoutComponent implements AfterViewInit {
+export class ShellComponent implements AfterViewInit {
   @ViewChild('floatingBtn', { static: false }) floatingBtn: ElementRef<HTMLDivElement>;
 
   links = [

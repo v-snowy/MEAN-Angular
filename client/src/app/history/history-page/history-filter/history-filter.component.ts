@@ -7,8 +7,8 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { Filter } from '../../shared/interfaces';
-import { MaterialDatepicker, MaterialService } from '../../shared/services/material.service';
+import { Filter } from 'src/app/shared/interfaces';
+import { MaterialDatepicker, MaterialService } from 'src/app/shared/services/material.service';
 
 @Component({
   selector: 'app-history-filter',

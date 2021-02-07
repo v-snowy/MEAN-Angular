@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { Position } from 'src/app/shared/interfaces';
 import { MaterialService } from 'src/app/shared/services/material.service';
+import { PositionsService } from 'src/app/shared/services/positions.service';
 
-import { Position } from '../../shared/interfaces';
-import { PositionsService } from '../../shared/services/positions.service';
 import { OrderService } from '../services/order.service';
 
 @Component({

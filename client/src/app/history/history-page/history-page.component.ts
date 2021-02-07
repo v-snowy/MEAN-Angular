@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { Filter, Order } from '../shared/interfaces';
-
-import { MaterialInstance, MaterialService } from '../shared/services/material.service';
-import { OrdersService } from '../shared/services/orders.service';
+import { Filter, Order } from 'src/app/shared/interfaces';
+import { MaterialInstance, MaterialService } from 'src/app/shared/services/material.service';
+import { OrdersService } from 'src/app/shared/services/orders.service';
 
 const STEP: number = 3;
 

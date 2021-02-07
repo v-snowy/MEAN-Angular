@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { AnalyticsChartItem, AnalyticsModel } from '../shared/interfaces';
-import { AnalyticsService } from '../shared/services/analytics.service';
+import { AnalyticsChartItem, AnalyticsModel } from '../../shared/interfaces';
+import { AnalyticsService } from '../../shared/services/analytics.service';
 import { Chart } from 'chart.js';
 
 interface ChartConfig {
