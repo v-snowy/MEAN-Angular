@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { MaterialService } from '../../../services/material.service';
@@ -6,7 +6,8 @@ import { MaterialService } from '../../../services/material.service';
 @Component({
   selector: 'app-shell',
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.sass']
+  styleUrls: ['./shell.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShellComponent implements AfterViewInit {
   @ViewChild('floatingBtn', { static: false }) floatingBtn: ElementRef<HTMLDivElement>;

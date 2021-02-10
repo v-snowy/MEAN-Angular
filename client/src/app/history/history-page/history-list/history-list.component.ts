@@ -1,11 +1,12 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Order } from 'src/app/shared/interfaces';
 import { MaterialInstance, MaterialService } from 'src/app/shared/services/material.service';
 
 @Component({
   selector: 'app-history-list',
   templateUrl: './history-list.component.html',
-  styleUrls: ['./history-list.component.sass']
+  styleUrls: ['./history-list.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HistoryListComponent implements OnDestroy, AfterViewInit {
 

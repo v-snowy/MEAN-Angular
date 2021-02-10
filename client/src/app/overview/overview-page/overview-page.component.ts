@@ -1,24 +1,41 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AnalyticsService } from '../../shared/services/analytics.service';
-import { OverviewItem, OverviewModel } from '../../shared/interfaces';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { Observable } from 'rxjs';
+import { SummaryAccountService } from '../../shared/services/summary-account.service';
+import { OverviewItem, OverviewModel } from '../../shared/interfaces';
 import { MaterialInstance, MaterialService } from '../../shared/services/material.service';
+import { LoadingValue } from 'src/app/store/shared/loading-value';
 
 @Component({
   selector: 'app-overview-page',
   templateUrl: './overview-page.component.html',
-  styleUrls: ['./overview-page.component.sass']
+  styleUrls: ['./overview-page.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OverviewPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('tapTarget', { static: false }) tapTargetRef: ElementRef<HTMLDivElement>;
 
-  tapTarget: MaterialInstance;
-  yesterday: Date = new Date();
-  data$: Observable<OverviewModel>;
+  private tapTarget: MaterialInstance;
+
+  get overview$(): Observable<LoadingValue<OverviewModel>> {
+    return this.summaryAccountService.overview$;
+  }
+
+  get yesterday(): number {
+    const _yesterday: Date = new Date();
+    return _yesterday.setDate(_yesterday.getDate() - 1);
+  }
 
   constructor(
-    private analyticsService: AnalyticsService
+    private summaryAccountService: SummaryAccountService
   ) { }
 
   ngOnDestroy(): void {
@@ -26,8 +43,7 @@ export class OverviewPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.data$ = this.analyticsService.getOverview();
-    this.yesterday.setDate(this.yesterday.getDate() - 1);
+    this.summaryAccountService.loadOverview();
   }
 
   ngAfterViewInit(): void {

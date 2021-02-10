@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CategoriesService } from 'src/app/shared/services/categories.service';
@@ -10,7 +10,8 @@ import { Category } from 'src/app/shared/interfaces';
   styleUrls: ['./order-categories.component.sass'],
   providers: [
     CategoriesService
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderCategoriesComponent implements OnInit {
   categories$: Observable<Category[]>;

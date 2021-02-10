@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category } from 'src/app/shared/interfaces';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
@@ -9,7 +9,8 @@ import { CategoriesService } from 'src/app/shared/services/categories.service';
   styleUrls: ['./categories-page.component.sass'],
   providers: [
     CategoriesService
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesPageComponent implements OnInit {
   categories$: Observable<Category[]>;

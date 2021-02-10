@@ -2,20 +2,22 @@
   <h4>Analytics</h4>
 </div>
 
-<div [style.display]="pending ? 'none' : 'block'">
-  <div class="average-price">
-    <p>Average price <strong>{{ average }}$</strong></p>
+<ng-container *ngIf="analytics$ | async as analytics">
+  <div [style.display]="analytics.loading ? 'none' : 'block'">
+    <div *ngIf="analytics.value as data" class="average-price">
+      <p>Average price <strong>{{ data.average }}$</strong></p>
+    </div>
+
+    <div class="analytics-block">
+      <h5>Gain</h5>
+      <canvas #gain></canvas>
+    </div>
+
+    <div class="analytics-block">
+      <h5>Orders</h5>
+      <canvas #orders></canvas>
+    </div>
   </div>
 
-  <div class="analytics-block">
-    <h5>Gain</h5>
-    <canvas #gain></canvas>
-  </div>
-
-  <div class="analytics-block">
-    <h5>Orders</h5>
-    <canvas #orders></canvas>
-  </div>
-</div>
-
-<app-loader *ngIf="pending"></app-loader>
+  <app-loader *ngIf="analytics.loading"></app-loader>
+</ng-container>

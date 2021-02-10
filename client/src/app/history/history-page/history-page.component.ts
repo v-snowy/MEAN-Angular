@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { Filter, Order } from 'src/app/shared/interfaces';
 import { MaterialInstance, MaterialService } from 'src/app/shared/services/material.service';
@@ -9,7 +9,8 @@ const STEP: number = 3;
 @Component({
   selector: 'app-history-page',
   templateUrl: './history-page.component.html',
-  styleUrls: ['./history-page.component.sass']
+  styleUrls: ['./history-page.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HistoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
 

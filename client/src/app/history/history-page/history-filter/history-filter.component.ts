@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -13,7 +14,8 @@ import { MaterialDatepicker, MaterialService } from 'src/app/shared/services/mat
 @Component({
   selector: 'app-history-filter',
   templateUrl: './history-filter.component.html',
-  styleUrls: ['./history-filter.component.sass']
+  styleUrls: ['./history-filter.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
 

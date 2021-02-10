@@ -5,59 +5,66 @@
   </h4>
 </div>
 
-<div *ngIf="data$ | async as data; else loaderTmpl" class="row">
-  <div class="col s12 l6">
-    <div class="card light-blue lighten-2 white-text">
-      <div class="card-content">
-        <span class="card-title">Gain:</span>
-        <h3>{{ data.gain.yesterday }}$</h3>
-        <h3
-          class="m0 mb1"
-          [ngClass]="{
-            'green-text text-darken-2': data.gain.isHigher,
-            'red-text': !data.gain.isHigher
-          }"
-        >
-          <i class="material-icons">
-            {{ data.gain.isHigher ? 'arrow_upward' : 'arrow_downward'  }}
-          </i>
-          {{ data.gain.percent }}%
-        </h3>
-        <p>
-          {{ getOverviewInformation(data.gain, 'Gain') }}
-        </p>
-      </div>
-    </div>
-  </div>
+<ng-container *ngIf="overview$ | async as overview">
+  <ng-container [ngTemplateOutlet]="overview.loading ? loaderTmpl : overviewTmpl"></ng-container>
 
-  <div class="col s12 l6">
-    <div class="card orange lighten-2 white-text">
-      <div class="card-content">
-        <span class="card-title">Orders:</span>
-        <h3>{{ data.orders.yesterday }} orders</h3>
-        <h3
-          class="m0 mb1"
-          [ngClass]="{
-            'green-text text-darken-2': data.orders.isHigher,
-            'red-text': !data.orders.isHigher
-          }"
-        >
-          <i class="material-icons">
-            {{ data.orders.isHigher ? 'arrow_upward' : 'arrow_downward'  }}
-          </i>
-          {{ data.orders.percent }}%
-        </h3>
-        <p>
-          {{ getOverviewInformation(data.orders, 'Orders') }}
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+  <ng-template #overviewTmpl>
+    <ng-container *ngIf="overview?.value as data">
+      <div class="row">
+        <div class="col s12 l6">
+          <div class="card light-blue lighten-2 white-text">
+            <div class="card-content">
+              <span class="card-title">Gain:</span>
+              <h3>{{ data.gain.yesterday }}$</h3>
+              <h3
+                class="m0 mb1"
+                [ngClass]="{
+                  'green-text text-darken-2': data.gain.isHigher,
+                  'red-text': !data.gain.isHigher
+                }"
+              >
+                <i class="material-icons">
+                  {{ data.gain.isHigher ? 'arrow_upward' : 'arrow_downward'  }}
+                </i>
+                {{ data.gain.percent }}%
+              </h3>
+              <p>
+                {{ getOverviewInformation(data.gain, 'Gain') }}
+              </p>
+            </div>
+          </div>
+        </div>
 
-<ng-template #loaderTmpl>
-  <app-loader></app-loader>
-</ng-template>
+        <div class="col s12 l6">
+          <div class="card orange lighten-2 white-text">
+            <div class="card-content">
+              <span class="card-title">Orders:</span>
+              <h3>{{ data.orders.yesterday }} orders</h3>
+              <h3
+                class="m0 mb1"
+                [ngClass]="{
+                  'green-text text-darken-2': data.orders.isHigher,
+                  'red-text': !data.orders.isHigher
+                }"
+              >
+                <i class="material-icons">
+                  {{ data.orders.isHigher ? 'arrow_upward' : 'arrow_downward'  }}
+                </i>
+                {{ data.orders.percent }}%
+              </h3>
+              <p>
+                {{ getOverviewInformation(data.orders, 'Orders') }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-template>
+  <ng-template #loaderTmpl>
+    <app-loader></app-loader>
+  </ng-template>
+</ng-container>
 
 <div #tapTarget class="tap-target" data-target="menu">
   <div class="tap-target-content">

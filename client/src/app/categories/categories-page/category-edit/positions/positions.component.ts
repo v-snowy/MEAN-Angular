@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { PositionsService } from 'src/app/shared/services/positions.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
@@ -12,7 +12,8 @@ import { MaterialService, MaterialInstance } from 'src/app/shared/services/mater
   styleUrls: ['./positions.component.sass'],
   providers: [
     PositionsService
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PositionsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input('categoryId') categoryId: string;

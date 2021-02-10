@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Order, OrderPosition } from 'src/app/shared/interfaces';
@@ -14,7 +14,8 @@ import { OrderService } from './services/order.service';
   providers: [
     OrderService,
     PositionsService
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('modal', { static: false }) modalRef: ElementRef<HTMLDivElement>;

@@ -8,6 +8,7 @@ import { AuthService } from './shared/services/auth.service';
 import { TokenInterceptor } from './shared/token.interceptor';
 import { ShellModule } from './shared/layouts/shell/shell.module';
 import { AuthModule } from './shared/layouts/auth/auth.module';
+import { RootStoreModule } from './store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,8 @@ import { AuthModule } from './shared/layouts/auth/auth.module';
     ReactiveFormsModule,
     HttpClientModule,
     ShellModule,
-    AuthModule
+    AuthModule,
+    RootStoreModule
   ],
   providers: [
     AuthService,

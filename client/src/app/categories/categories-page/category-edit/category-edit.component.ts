@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { switchMap, take } from 'rxjs/operators';
@@ -14,7 +14,8 @@ import { MaterialService } from 'src/app/shared/services/material.service';
   styleUrls: ['./category-edit.component.sass'],
   providers: [
     CategoriesService
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryEditComponent implements OnInit {
   @ViewChild('fileInput', { static: true }) fileInputRef: ElementRef<HTMLInputElement>;

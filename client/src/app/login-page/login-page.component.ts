@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { ActivatedRoute, Router, Params } from '@angular/router';
@@ -10,7 +10,8 @@ import { MaterialService } from '../shared/services/material.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.sass']
+  styleUrls: ['./login-page.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
   form: FormGroup;

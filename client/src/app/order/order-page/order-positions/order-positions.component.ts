@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -11,7 +11,8 @@ import { OrderService } from '../services/order.service';
 @Component({
   selector: 'app-order-positions',
   templateUrl: './order-positions.component.html',
-  styleUrls: ['./order-positions.component.sass']
+  styleUrls: ['./order-positions.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderPositionsComponent implements OnInit {
 

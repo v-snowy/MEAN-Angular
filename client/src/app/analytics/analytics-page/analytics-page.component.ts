@@ -1,8 +1,11 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { take } from 'rxjs/operators';
-import { AnalyticsChartItem, AnalyticsModel } from '../../shared/interfaces';
-import { AnalyticsService } from '../../shared/services/analytics.service';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { filter, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Chart } from 'chart.js';
+import { AnalyticsChartItem, AnalyticsModel } from '../../shared/interfaces';
+import { SummaryAccountService } from '../../shared/services/summary-account.service';
+import { LoadingValue } from 'src/app/store/shared/loading-value';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 interface ChartConfig {
   label: 'Gain' | 'Orders';
@@ -14,48 +17,56 @@ interface ChartConfig {
 @Component({
   selector: 'app-analytics-page',
   templateUrl: './analytics-page.component.html',
-  styleUrls: ['./analytics-page.component.sass']
+  styleUrls: ['./analytics-page.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AnalyticsPageComponent implements OnInit, AfterViewInit {
+export class AnalyticsPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('gain', { static:  false}) gainRef: ElementRef<HTMLCanvasElement>;
   @ViewChild('orders', { static:  false}) ordersRef: ElementRef<HTMLCanvasElement>;
 
-  average: number;
-  pending: boolean = true;
+  get analytics$(): Observable<LoadingValue<AnalyticsModel>> {
+    return this.summaryAccountService.analytics$;
+  }
+
+  private readonly gainConfig: ChartConfig = {
+    label: 'Gain',
+    color: 'rgb(255, 99, 132)',
+    labels: [],
+    data: []
+  };
+  private readonly ordersConfig: ChartConfig = {
+    label: 'Orders',
+    color: 'rgb(54, 162, 235)',
+    labels: [],
+    data: []
+  };
 
   constructor(
-    private analyticsService: AnalyticsService
+    private summaryAccountService: SummaryAccountService
   ) { }
 
+  ngOnDestroy(): void {
+  }
+
   ngOnInit(): void {
+    this.summaryAccountService.loadAnalytics();
   }
 
   ngAfterViewInit(): void {
-    const gainConfig: ChartConfig = {
-      label: 'Gain',
-      color: 'rgb(255, 99, 132)',
-      labels: [],
-      data: []
-    };
+    this.drawAnalyticsCharts();
+  }
 
-    const ordersConfig: ChartConfig = {
-      label: 'Orders',
-      color: 'rgb(54, 162, 235)',
-      labels: [],
-      data: []
-    };
-
-    this.analyticsService.getAnalytics()
+  private drawAnalyticsCharts(): void {
+    this.analytics$
       .pipe(
+        untilDestroyed(this),
+        filter(({ value }: LoadingValue<AnalyticsModel>) => !!value),
         take(1)
       )
-      .subscribe((data: AnalyticsModel) => {
-        this.average = data.average;
-        this.drawChart(gainConfig, data, this.gainRef);
-        this.drawChart(ordersConfig, data, this.ordersRef);
-
-        this.pending = false;
+      .subscribe(({ value: data }: LoadingValue<AnalyticsModel>) => {
+        this.drawChart(this.gainConfig, data, this.gainRef);
+        this.drawChart(this.ordersConfig, data, this.ordersRef);
       })
   }
 
