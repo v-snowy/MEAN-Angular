@@ -8,9 +8,9 @@ import { Category } from 'src/app/shared/interfaces';
   selector: 'app-order-categories',
   templateUrl: './order-categories.component.html',
   styleUrls: ['./order-categories.component.sass'],
-  providers: [
-    CategoriesService
-  ],
+  // providers: [
+  //   CategoriesService
+  // ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderCategoriesComponent implements OnInit {

@@ -5,22 +5,41 @@
   </button>
 </div>
 
-<div class="row" *ngIf="categories$ | async as categories; else loader">
-  <div class="col s12">
-      <div class="collection" *ngIf="categories.length > 0; else empty">
-          <a href="#!" class="collection-item"
-            *ngFor="let category of categories"
-            [routerLink]="['/categories', category._id]"
-            routerActiveLink="active">
-            {{ category.name }}
-          </a>
-      </div>
-      <ng-template #empty>
-        <div class="center">Categories are empty</div>
-      </ng-template>
-  </div>
-</div>
+<ng-container *ngIf="categories$ | async as categoriesList">
+  <ng-container
+    [ngTemplateOutlet]='categoriesList.loading ? loaderTmpl : dataTmpl'
+    [ngTemplateOutletContext]="{ $implicit: categoriesList.array }"
+  ></ng-container>
 
-<ng-template #loader>
-  <app-loader></app-loader>
-</ng-template>
+  <ng-template #dataTmpl let-categories>
+    <div class="row">
+      <div class="col s12">
+        <ng-container [ngTemplateOutlet]="!!categories.length ? categoriesTmpl : emptyTmpl"></ng-container>
+
+        <ng-template #categoriesTmpl>
+          <div class="collection">
+            <a href="#!" class="collection-item"
+              *ngFor="let category of categories; trackBy: trackByFn"
+              [routerLink]="['/categories', category._id]"
+              routerActiveLink="active"
+            >
+              {{ category.name }}
+            </a>
+          </div>
+        </ng-template>
+
+        <ng-template #emptyTmpl>
+          <div class="center">
+            Categories are empty
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #loaderTmpl>
+    <app-loader></app-loader>
+  </ng-template>
+</ng-container>
+
+

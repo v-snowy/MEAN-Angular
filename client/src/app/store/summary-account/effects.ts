@@ -14,7 +14,7 @@ export class SummaryAccountEffects {
     return this.actions$.pipe(
       ofType(SummaryAccountStoreActions.loadOverview),
       switchMap((): Observable<Action> => {
-        return this.analyticsService.getOverview()
+        return this.summaryAccountService.getOverview()
           .pipe(
             catchError(() => of(null)),
             map(
@@ -29,7 +29,7 @@ export class SummaryAccountEffects {
     return this.actions$.pipe(
       ofType(SummaryAccountStoreActions.loadAnalytics),
       switchMap((): Observable<Action> => {
-        return this.analyticsService.getAnalytics()
+        return this.summaryAccountService.getAnalytics()
           .pipe(
             catchError(() => of(null)),
             map(
@@ -42,7 +42,7 @@ export class SummaryAccountEffects {
 
   constructor(
     private readonly actions$: Actions,
-    private readonly analyticsService: SummaryAccountService
+    private readonly summaryAccountService: SummaryAccountService
   ) {
   }
 }

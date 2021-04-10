@@ -15,7 +15,8 @@ export const loadOverview:
   createAction('[Overview Store] Load Overview');
 
 export const saveOverview:
-  ActionCreator<string, (props: SaveOverviewProps) => SaveOverviewProps & TypedAction<string>> =
+  ActionCreator<string, (props: SaveOverviewProps) =>
+    SaveOverviewProps & TypedAction<string>> =
   createAction(
     '[Overview Store] Save Overview',
     props<SaveOverviewProps>()
@@ -26,7 +27,8 @@ export const loadAnalytics:
   createAction('[Overview Store] Load Analytics');
 
 export const saveAnalytics:
-  ActionCreator<string, (props: SaveAnalyticsProps) => SaveAnalyticsProps & TypedAction<string>> =
+  ActionCreator<string, (props: SaveAnalyticsProps) =>
+    SaveAnalyticsProps & TypedAction<string>> =
   createAction(
     '[Overview Store] Save Analytics',
     props<SaveAnalyticsProps>()

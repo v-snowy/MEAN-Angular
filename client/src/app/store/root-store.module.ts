@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { CategoriesStoreModule } from './categories';
 import { SummaryAccountStoreModule } from './summary-account';
 
 @NgModule({
@@ -9,7 +10,8 @@ import { SummaryAccountStoreModule } from './summary-account';
     CommonModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
-    SummaryAccountStoreModule
+    SummaryAccountStoreModule,
+    CategoriesStoreModule
   ]
 })
 export class RootStoreModule {}
